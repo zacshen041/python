@@ -3,9 +3,15 @@ import time
 
 now = lambda: time.time()
 
-async def dosomething(num):
+async def dosomething1(num):
     print('第 {} 任務，第一步'.format(num))
-    await asyncio.sleep(0)
+    await asyncio.sleep(3)
+    print('第 {} 任務，第二步'.format(num))
+    return '第 {} 任務完成'.format(num)
+
+async def dosomething2(num):
+    print('第 {} 任務，第一步'.format(num))
+    await asyncio.sleep(2)
     print('第 {} 任務，第二步'.format(num))
     return '第 {} 任務完成'.format(num)
 
@@ -22,9 +28,9 @@ async def BMI_cal():
     return 'BMI測量結束'
 
 async def main():
-    tasks0 = [dosomething(i) for i in range(5)]
-    tasks1 = [dosomething(i) for i in range(5,8)]
-    tasks2 = [raise_error(i) for i in range(5)]
+    tasks0 = [dosomething1(i) for i in range(5)]
+    tasks1 = [dosomething2(i) for i in range(5,9)]
+    tasks2 = [dosomething1(i) for i in range(9,12)]
 
     results = await asyncio.gather(*tasks0, *tasks1, *tasks2, return_exceptions=True)
     print(results)
